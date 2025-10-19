@@ -41,12 +41,12 @@
       },
       "versions": [
         {
-          "version": "2.3.2",
-          "date": "2025-09-25",
+          "version": "2.3.3",
+          "date": "2025-10-19",
           "localizedDescription": "Beta iOS 26 support and UI improvements.",
           "downloadURL": "https://stikdebug.xyz/adp",
-          "size": 7414413,
-          "buildVersion": "1"
+          "size": 5908259,
+          "buildVersion": "4"
         }
       ]
     },
