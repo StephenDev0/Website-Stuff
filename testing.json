@@ -6,7 +6,8 @@
   "tintColor": "#293B45",
   "featuredApps": [
     "com.stik.sj",
-    "com.stik.StikBridge.beta"
+    "com.stik.StikBridge.beta",
+    "com.stik.StikDoodlePro"
   ],
   "apps": [
     {
@@ -22,31 +23,19 @@
       "minOSVersion": "17.4",
       "screenshots": {
         "iphone": [
-          {
-            "width": 1290,
-            "height": 2796,
-            "imageURL": "https://stikdebug.xyz/1.PNG"
-          },
-          {
-            "width": 1290,
-            "height": 2796,
-            "imageURL": "https://stikdebug.xyz/2.PNG"
-          },
-          {
-            "width": 1290,
-            "height": 2796,
-            "imageURL": "https://stikdebug.xyz/3.PNG"
-          }
+          { "width": 1290, "height": 2796, "imageURL": "https://stikdebug.xyz/1.PNG" },
+          { "width": 1290, "height": 2796, "imageURL": "https://stikdebug.xyz/2.PNG" },
+          { "width": 1290, "height": 2796, "imageURL": "https://stikdebug.xyz/3.PNG" }
         ]
       },
       "versions": [
         {
-          "version": "2.3.2",
-          "date": "2025-09-25",
+          "version": "2.3.3",
+          "date": "2025-10-19",
           "localizedDescription": "Beta iOS 26 support and UI improvements.",
           "downloadURL": "https://stikdebug.xyz/adp",
-          "size": 7414413,
-          "buildVersion": "1"
+          "size": 5908259,
+          "buildVersion": "4"
         }
       ]
     },
@@ -62,26 +51,12 @@
       "tintColor": "#293B45",
       "minOSVersion": "17.4",
       "beta": true,
-      "patreon": {
-        "pledge": 3
-      },
+      "patreon": { "pledge": 3 },
       "screenshots": {
         "iphone": [
-          {
-            "width": 1290,
-            "height": 2796,
-            "imageURL": "https://stikdebug.xyz/4.PNG"
-          },
-          {
-            "width": 1290,
-            "height": 2796,
-            "imageURL": "https://stikdebug.xyz/5.PNG"
-          },
-          {
-            "width": 1290,
-            "height": 2796,
-            "imageURL": "https://stikdebug.xyz/6.PNG"
-          }
+          { "width": 1290, "height": 2796, "imageURL": "https://stikdebug.xyz/4.PNG" },
+          { "width": 1290, "height": 2796, "imageURL": "https://stikdebug.xyz/5.PNG" },
+          { "width": 1290, "height": 2796, "imageURL": "https://stikdebug.xyz/6.PNG" }
         ]
       },
       "versions": [
@@ -91,6 +66,37 @@
           "localizedDescription": "Patreon beta release of StikBridge — now live! Exclusive early access for Patreon supporters to test new features and tools before the public 1.0 release. The beta will continue to exist as an ongoing test branch with new experimental features even after 1.0 launches.",
           "downloadURL": "https://www.patreon.com/posts/introducing-stik-140761256",
           "size": 3296110,
+          "buildVersion": "1"
+        }
+      ]
+    },
+    {
+      "name": "StikDoodle Pro",
+      "bundleIdentifier": "com.stik.StikDoodlePro",
+      "marketplaceID": "6754262888",
+      "developerName": "Stephen B",
+      "subtitle": "Patreon beta — Simple drawing app",
+      "localizedDescription": "StikDoodle Pro is a no-frills drawing app. Sketch and note on a clean canvas with basic pen and eraser tools, a color picker, and an optional grid. Save, share, and draw with ease, all in dark mode-friendly vibes, running locally on your device.",
+      "category": "photo & video",
+      "iconURL": "https://stikdebug.xyz/StikDoodlePro.png",
+      "tintColor": "#293B45",
+      "minOSVersion": "17.4",
+      "beta": true,
+      "patreon": { "pledge": 3 },
+      "screenshots": {
+        "iphone": [
+          { "width": 1290, "height": 2796, "imageURL": "https://stikdebug.xyz/4.PNG" },
+          { "width": 1290, "height": 2796, "imageURL": "https://stikdebug.xyz/5.PNG" },
+          { "width": 1290, "height": 2796, "imageURL": "https://stikdebug.xyz/6.PNG" },
+        ]
+      },
+      "versions": [
+        {
+          "version": "1.1.0",
+          "date": "2025-10-21",
+          "localizedDescription": "Patreon beta release of StikDoodle Pro — simple sketching and note-taking.",
+          "downloadURL": "https://www.patreon.com/posts/stikdoodle-pro-141009712",
+          "size": 8421360,
           "buildVersion": "1"
         }
       ]
