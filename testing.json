@@ -78,7 +78,7 @@
       "subtitle": "Patreon beta — Simple drawing app",
       "localizedDescription": "StikDoodle Pro is a no-frills drawing app. Sketch and note on a clean canvas with basic pen and eraser tools, a color picker, and an optional grid. Save, share, and draw with ease, all in dark mode-friendly vibes, running locally on your device.",
       "category": "photo & video",
-      "iconURL": "https://stikdebug.xyz/StikDoodlePro.png",
+      "iconURL": "https://stikdebug.xyz/StikDoodle.PNG",
       "tintColor": "#293B45",
       "minOSVersion": "17.4",
       "beta": true,
@@ -92,10 +92,10 @@
       "versions": [
         {
           "version": "1.1.0",
-          "date": "2025-10-21",
+          "date": "2025-10-22",
           "localizedDescription": "Patreon beta release of StikDoodle Pro — simple sketching and note-taking.",
           "downloadURL": "https://www.patreon.com/posts/stikdoodle-pro-141009712",
-          "size": 8421360,
+          "size": 1266225,
           "buildVersion": "1"
         }
       ]
