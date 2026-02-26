@@ -30,6 +30,14 @@
       },
       "versions": [
         {
+          "version": "3.0.0",
+          "date": "2026-02-25",
+          "localizedDescription": "Massive codebase cleanup and updates!",
+          "downloadURL": "https://github.com/StephenDev0/StikDebug/releases/download/3.0.0/StikDebug-3.0.0.ipa",
+          "size": 9970000,
+          "minOSVersion": "17.4"
+        },
+        {
           "version": "2.3.7",
           "date": "2026-01-09",
           "localizedDescription": "Amethyst and MeloNX universal script support!",
