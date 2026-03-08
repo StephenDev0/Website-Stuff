@@ -30,10 +30,18 @@
       },
       "versions": [
         {
+          "version": "3.0.1",
+          "date": "2026-03-08",
+          "localizedDescription": "3.0.1",
+          "downloadURL": "https://github.com/StephenDev0/StikDebug/releases/download/3.0.0/StikDebug-3.0.0.ipa",
+          "size": 9970000,
+          "minOSVersion": "17.4"
+        },
+        {
           "version": "3.0.0",
           "date": "2026-02-25",
           "localizedDescription": "Massive codebase cleanup and updates!",
-          "downloadURL": "https://github.com/StephenDev0/StikDebug/releases/download/3.0.0/StikDebug-3.0.0.ipa",
+          "downloadURL": "https://github.com/StephenDev0/StikDebug/releases/download/3.0.1/StikDebug-3.0.1.ipa",
           "size": 9970000,
           "minOSVersion": "17.4"
         },
