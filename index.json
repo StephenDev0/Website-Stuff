@@ -30,6 +30,14 @@
       },
       "versions": [
         {
+          "version": "3.1.1",
+          "date": "2026-04-03",
+          "localizedDescription": "Bug fixes and stuff",
+          "downloadURL": "https://github.com/StephenDev0/StikDebug/releases/download/3.1.1/StikDebug-3.1.1.ipa",
+          "size": 10889554,
+          "minOSVersion": "17.4"
+        },
+        {
           "version": "3.1.0",
           "date": "2026-03-30",
           "localizedDescription": "3.1.0- Begins transition from RPPairing to lockdown. Users will need to make a new pairing and mount the DDI with idevice_pair.",
