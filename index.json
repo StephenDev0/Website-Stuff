@@ -28,7 +28,16 @@
         "entitlements": [],
         "privacy": {}
       },
+
       "versions": [
+        {
+          "version": "3.1.1",
+          "date": "2026-04-12",
+          "localizedDescription": "Improved iOS 26/TXM JIT reliability.",
+          "downloadURL": "https://github.com/StephenDev0/StikDebug/releases/download/3.1.2/StikDebug-3.1.2.ipa",
+          "size": 10974298,
+          "minOSVersion": "17.4"
+        },
         {
           "version": "3.1.1",
           "date": "2026-04-03",
