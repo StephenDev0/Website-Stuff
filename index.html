@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <title>StikDebug - On-Device Debugger & JIT Enabler for iOS</title>
-    <meta name="title" content="StikDebug - On-Device Debugger & JIT Enabler for iOS">
-    <meta name="description" content="StikDebug is an on-device iOS debugger and JIT enabler. Enable JIT, inspect processes, manage provisioning profiles, and automate developer workflows without a computer.">
+
+    <title>StikDebug - iOS JIT Enabler &amp; On-Device Debugger</title>
+    <meta name="title" content="StikDebug - iOS JIT Enabler &amp; On-Device Debugger">
+    <meta name="description" content="StikDebug helps you enable JIT on iOS, then inspect processes, manage pairing files, and track app expiration dates without a computer.">
     <meta name="keywords" content="StikDebug, iOS debugger, JIT enabler, on-device debugging, iOS development, JIT iOS 17, iloader, Stephen Bove">
     <meta name="author" content="Stephen Bove">
     <meta name="robots" content="index, follow">
@@ -15,7 +15,7 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://stikdebug.xyz/">
     <meta property="og:title" content="StikDebug - On-Device JIT Enabler">
-    <meta property="og:description" content="Unlock the power of on-device debugging. Enable JIT, view logs, and manage your iOS development workflow without a computer.">
+    <meta property="og:description" content="Enable JIT on iOS, view logs, and manage pairing files directly from your device.">
     <meta property="og:image" content="https://stikdebug.xyz/assets/icon.png">
     <meta property="og:image:alt" content="StikDebug app icon">
     <meta property="og:site_name" content="StikDebug">
@@ -24,11 +24,12 @@
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://stikdebug.xyz/">
     <meta property="twitter:title" content="StikDebug - On-Device JIT Enabler">
-    <meta property="twitter:description" content="Unlock the power of on-device debugging. Enable JIT, view logs, and manage your iOS development workflow without a computer.">
+    <meta property="twitter:description" content="Enable JIT on iOS, view logs, and manage pairing files directly from your device.">
     <meta property="twitter:image" content="https://stikdebug.xyz/assets/icon.png">
     <meta property="twitter:image:alt" content="StikDebug app icon">
 
     <link rel="icon" type="image/png" href="assets/icon.png">
+    <link rel="preload" href="assets/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
 
     <script type="application/ld+json">
         {
@@ -37,7 +38,7 @@
             "name": "StikDebug",
             "operatingSystem": "iOS",
             "applicationCategory": "DeveloperApplication",
-            "description": "StikDebug is an on-device iOS debugger and JIT enabler. Enable JIT, inspect processes, manage provisioning profiles, and automate developer workflows without a computer.",
+            "description": "StikDebug helps you enable JIT on iOS, then inspect processes, manage pairing files, and track app expiration dates without a computer.",
             "url": "https://stikdebug.xyz/",
             "image": "https://stikdebug.xyz/assets/icon.png",
             "author": {
@@ -46,543 +47,1258 @@
             }
         }
     </script>
-    
+
     <style>
+        @font-face {
+            font-family: "Geist";
+            src: url("assets/fonts/Geist-Variable.woff2") format("woff2");
+            font-weight: 100 900;
+            font-style: normal;
+            font-display: swap;
+        }
+
         :root {
-            --primary-color: #2997ff; /* iOS bright blue */
-            --bg-color: #000000;
-            --text-color: #f5f5f7;
-            --secondary-text: #86868b;
-            
-            /* Glass Variables */
-            --glass-bg: rgba(30, 30, 35, 0.65);
-            --glass-border: rgba(255, 255, 255, 0.12);
-            --glass-highlight: rgba(255, 255, 255, 0.08);
-            --glass-blur: blur(25px);
-            
-            --warning-bg: rgba(60, 40, 0, 0.6);
-            --warning-border: #ffd60a;
-            --warning-text: #fff;
-            
-            --beta-badge-bg: rgba(255, 149, 0, 0.25);
-            --beta-badge-color: #ff9f0a;
-            
-            --discord-color: #5865F2;
+            color-scheme: dark;
+            --color-primary: hsl(0 0% 5%);
+            --color-primary-fg: hsl(0 0% 95%);
+            --color-secondary: hsl(0 0% 10%);
+            --color-secondary-fg: hsl(0 0% 75%);
+            --color-opposite: hsl(0 0% 100%);
+            --color-opposite-fg: hsl(0 0% 0%);
+            --color-border: hsl(0 0% 15%);
+            --color-muted-border: hsl(0 0% 22%);
+            --accent: #00a8ff;
+            --accent-bright: #00c5ff;
+            --accent-deep: #0070ff;
+            --discord: #5865f2;
+            --success: #6ed97a;
+            --warning: #ffd60a;
+            --danger: #ff6b66;
+            --hero-dot-color: hsl(204 100% 58% / 0.24);
+            --hero-dot-fade-stop: 56%;
+            --hero-image-fade-mid: hsl(0 0% 5% / 0.72);
+            --shadow-top-border: inset 0 1px 1px 0 hsl(0 0% 95% / 0.15);
+            --shadow-soft: 0 30px 90px hsl(0 0% 0% / 0.42);
+            --font-family-primary: "Geist", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        }
+
+        :root[data-theme="light"] {
+            color-scheme: light;
+            --color-primary: hsl(0 0% 98%);
+            --color-primary-fg: hsl(0 0% 8%);
+            --color-secondary: hsl(0 0% 92%);
+            --color-secondary-fg: hsl(0 0% 35%);
+            --color-opposite: hsl(0 0% 8%);
+            --color-opposite-fg: hsl(0 0% 100%);
+            --color-border: hsl(0 0% 86%);
+            --color-muted-border: hsl(0 0% 78%);
+            --hero-dot-color: hsl(204 100% 58% / 0.38);
+            --hero-dot-fade-stop: 58%;
+            --hero-image-fade-mid: hsl(0 0% 98% / 0.78);
+            --shadow-top-border: inset 0 1px 1px 0 hsl(0 0% 100% / 0.85);
+            --shadow-soft: 0 30px 90px hsl(0 0% 0% / 0.12);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            background: var(--color-primary);
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
             margin: 0;
-            padding: 0;
-            line-height: 1.6;
-            scroll-behavior: smooth;
+            background: var(--color-primary);
+            color: var(--color-secondary-fg);
+            font-family: var(--font-family-primary);
+            font-size: 14px;
+            line-height: 1.5;
+            letter-spacing: 0;
             -webkit-font-smoothing: antialiased;
+            text-rendering: geometricPrecision;
+            transition: background-color 320ms cubic-bezier(0.16, 1, 0.3, 1), color 320ms cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        img,
+        svg {
+            display: block;
+        }
+
+        .page-shell {
+            min-height: 100vh;
+            overflow: hidden;
+            background:
+                radial-gradient(circle at 50% 0, hsl(204 100% 58% / 0.12), transparent 32rem),
+                var(--color-primary);
         }
 
         .container {
-            max-width: 1000px; /* Slightly tighter for modern feel */
+            width: min(100% - 3rem, 72rem);
             margin: 0 auto;
-            padding: 0 24px;
         }
 
-        /* Liquid Glass Header */
-        header {
-            padding: 16px 24px;
+        .site-header-wrap {
+            position: fixed;
+            top: 1.5rem;
+            left: 0;
+            right: 0;
+            z-index: 50;
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 20px;
-            z-index: 1000;
-            margin: 20px auto 0;
-            max-width: 960px;
-            border-radius: 100px; /* Pill shape */
-            
-            background: rgba(20, 20, 20, 0.7);
-            backdrop-filter: var(--glass-blur) saturate(180%);
-            -webkit-backdrop-filter: var(--glass-blur) saturate(180%);
-            border: 1px solid var(--glass-border);
+            width: auto;
+            justify-content: center;
+            padding: 0 1.5rem;
+            pointer-events: none;
         }
 
-        .logo {
-            font-size: 1.3rem;
+        .site-header {
+            display: flex;
+            min-height: 4rem;
+            width: min(100%, 55rem);
+            align-items: center;
+            gap: 1rem;
+            border: 1px solid var(--color-border);
+            border-radius: 1.5rem;
+            background: linear-gradient(to bottom, hsl(0 0% 5% / 0.76), hsl(0 0% 10% / 0.76));
+            box-shadow: var(--shadow-top-border);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            padding: 0.55rem 0.8rem 0.55rem 1rem;
+            pointer-events: auto;
+        }
+
+        :root[data-theme="light"] .site-header {
+            background: linear-gradient(to bottom, hsl(0 0% 100% / 0.78), hsl(0 0% 92% / 0.78));
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--color-primary-fg);
+            font-weight: 800;
+            white-space: nowrap;
+        }
+
+        .brand img {
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 0.9rem;
+            box-shadow: inset 0 0 0 1px hsl(0 0% 100% / 0.12);
+        }
+
+        .nav-divider {
+            width: 1px;
+            height: 1.25rem;
+            background: var(--color-border);
+        }
+
+        .desktop-nav {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .desktop-nav a,
+        .mobile-nav a {
+            border-radius: 0.75rem;
+            color: var(--color-secondary-fg);
             font-weight: 700;
-            letter-spacing: -0.5px;
-            color: #fff;
+            transition: color 180ms ease, background-color 180ms ease;
         }
 
-        .logo span { 
-            color: var(--primary-color);
+        .desktop-nav a {
+            padding: 0.75rem 1rem;
         }
 
-        nav {
+        .desktop-nav a:hover,
+        .desktop-nav a.is-active,
+        .mobile-nav a:hover,
+        .mobile-nav a.is-active {
+            color: var(--color-primary-fg);
+            background: hsl(0 0% 100% / 0.05);
+        }
+
+        :root[data-theme="light"] .desktop-nav a:hover,
+        :root[data-theme="light"] .desktop-nav a.is-active,
+        :root[data-theme="light"] .mobile-nav a:hover,
+        :root[data-theme="light"] .mobile-nav a.is-active {
+            background: hsl(0 0% 0% / 0.05);
+        }
+
+        .nav-actions {
             display: flex;
             align-items: center;
-            gap: 24px;
+            gap: 0.5rem;
+            margin-left: auto;
         }
 
-        nav a {
-            color: rgba(255, 255, 255, 0.7);
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 500;
-            transition: color 0.2s;
+        .icon-button {
+            display: inline-flex;
+            width: 2.5rem;
+            height: 2.5rem;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--color-border);
+            border-radius: 0.9rem;
+            background: transparent;
+            color: var(--color-secondary-fg);
+            cursor: pointer;
+            transition: color 180ms ease, border-color 180ms ease, background-color 180ms ease;
         }
 
-        nav a:hover {
-            color: #fff;
+        .icon-button:hover {
+            border-color: var(--color-muted-border);
+            color: var(--color-primary-fg);
+            background: hsl(0 0% 100% / 0.05);
         }
 
-        /* Hero Section */
-        .hero {
+        :root[data-theme="light"] .icon-button:hover {
+            background: hsl(0 0% 0% / 0.04);
+        }
+
+        .menu-toggle {
+            display: none;
+        }
+
+        .mobile-nav {
+            display: none;
+            width: 100%;
+            border-top: 1px solid var(--color-border);
+            padding: 0.75rem 0 0.25rem;
+        }
+
+        .mobile-nav a {
+            display: flex;
+            padding: 0.7rem 0.6rem;
+        }
+
+        .hero-page-bg {
+            position: relative;
+            min-height: 92svh;
+            overflow: hidden;
+            padding-top: 8rem;
+        }
+
+        .hero-page-bg::before {
+            position: absolute;
+            top: 45%;
+            left: 50%;
+            z-index: 0;
+            width: 300%;
+            height: 0;
+            padding-bottom: 300%;
+            content: "";
+            pointer-events: none;
+            background: linear-gradient(145deg, var(--hero-dot-color), transparent var(--hero-dot-fade-stop));
+            -webkit-mask: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='75' height='75'%3E%3Ccircle cx='50' cy='50' r='10'/%3E%3C/svg%3E") center/16px repeat;
+            mask: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='75' height='75'%3E%3Ccircle cx='50' cy='50' r='10'/%3E%3C/svg%3E") center/16px repeat;
+            transform: translate(-50%, -50%) rotate(35deg);
+        }
+
+        .hero-inner {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
             text-align: center;
-            padding: 100px 0 80px;
         }
 
-        .app-icon {
-            width: 128px;
-            height: 128px;
-            border-radius: 34px; /* iOS Squircle approximation */
-            margin: 0 auto 40px;
-            display: block;
-            object-fit: cover;
-            border: 1px solid rgba(255,255,255,0.1);
-            transition: transform 0.3s ease;
+        .hero-copy {
+            width: 100%;
+            max-width: 44rem;
+            animation: hero-enter 700ms cubic-bezier(0.16, 1, 0.3, 1) both;
+            transform-origin: center top;
         }
 
-        .app-icon:hover {
-            transform: scale(1.02);
+        h1,
+        h2,
+        h3,
+        h4,
+        p {
+            margin: 0;
         }
 
         h1 {
-            font-size: 3.5rem;
-            margin: 0 0 20px;
-            line-height: 1.05;
+            color: var(--color-primary-fg);
+            font-size: 4rem;
             font-weight: 800;
-            letter-spacing: -1.5px;
-            color: #fff;
+            line-height: 1.05;
         }
 
-        .hero p {
-            font-size: 1.25rem;
-            color: var(--secondary-text);
-            max-width: 580px;
-            margin: 0 auto 50px;
-            font-weight: 400;
+        .gradient-text {
+            background: linear-gradient(135deg, var(--color-primary-fg), var(--color-secondary-fg));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
         }
 
-        /* Buttons */
-        .cta-buttons {
+        .hero-subtitle {
+            margin-top: 0.45rem;
+            color: var(--color-primary-fg);
+            font-size: 2rem;
+            font-weight: 700;
+            line-height: 1.15;
+        }
+
+        .hero-description {
+            max-width: 40rem;
+            margin: 1.15rem auto 0;
+            color: var(--color-secondary-fg);
+            font-size: 1rem;
+        }
+
+        .hero-actions {
             display: flex;
             flex-wrap: wrap;
-            align-items: center;
             justify-content: center;
-            gap: 16px;
+            gap: 0.75rem;
+            margin-top: 1.6rem;
         }
 
-        .app-store-btn {
+        .button {
             display: inline-flex;
+            min-height: 3.1rem;
             align-items: center;
             justify-content: center;
+            gap: 0.65rem;
+            border-radius: 1rem;
+            border: 1px solid transparent;
+            padding: 0 1.25rem;
+            font-weight: 800;
+            transition: transform 180ms ease, opacity 180ms ease, border-color 180ms ease, background-color 180ms ease;
+        }
+
+        .button:hover {
+            transform: translateY(-1px);
+        }
+
+        .button-primary {
+            background: linear-gradient(to bottom, var(--accent-bright), var(--accent-deep));
             color: white;
-            text-decoration: none;
-            padding: 14px 28px;
-            border-radius: 100px;
-            font-weight: 600;
-            font-size: 0.95rem;
-            border: 1px solid rgba(255,255,255,0.05);
-            background-color: var(--primary-color);
-            transition: transform 0.2s, opacity 0.2s;
         }
 
-        .app-store-btn:hover {
-            transform: translateY(-2px);
-            opacity: 0.9;
+        .button-secondary {
+            border-color: var(--color-border);
+            background: var(--color-opposite);
+            color: var(--color-opposite-fg);
         }
 
-        .github-link {
-            display: inline-block;
-            margin-top: 30px;
-            color: var(--secondary-text);
-            text-decoration: none;
-            font-size: 0.9rem;
-            transition: color 0.2s;
+        .button-quiet {
+            border-color: var(--color-border);
+            background: var(--color-secondary);
+            color: var(--color-primary-fg);
         }
 
-        .github-link:hover {
-            color: #fff;
+        :root[data-theme="light"] .button-quiet {
+            background: var(--color-secondary);
         }
 
-        section { scroll-margin-top: 120px; }
-        .features { padding: 40px 0 80px; }
-        
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 24px;
-        }
-        
-        /* Glass Cards */
-        .card {
-            background: var(--glass-bg);
-            backdrop-filter: var(--glass-blur) saturate(180%);
-            -webkit-backdrop-filter: var(--glass-blur) saturate(180%);
-            padding: 32px;
-            border-radius: 32px; /* Very rounded */
-            border: 1px solid var(--glass-border);
+        .hero-visual-shell {
             position: relative;
-            overflow: hidden;
-            transition: transform 0.3s, background 0.3s;
+            z-index: 0;
+            width: 100%;
+            margin-top: 8rem;
         }
 
-        .card:hover {
-            transform: translateY(-4px);
-            background: rgba(45, 45, 50, 0.7);
-        }
-
-        .card h3 { 
-            margin-top: 0; 
-            font-size: 1.4rem; 
-            color: #fff;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 10px;
-        }
-        
-        .card p { 
-            color: rgba(255, 255, 255, 0.7); 
-            margin-bottom: 0; 
-            font-size: 1rem; 
-            line-height: 1.5;
-        }
-
-        .beta-tag {
-            font-size: 0.7rem;
-            background-color: var(--beta-badge-bg);
-            color: var(--beta-badge-color);
-            padding: 4px 10px;
-            border-radius: 12px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .guide {
-            padding: 80px 0;
-            position: relative;
-        }
-        
-        /* Separator line */
-        .guide::before {
-            content: "";
+        .hero-visual-shell::after {
             position: absolute;
-            top: 0; left: 50%; transform: translateX(-50%);
-            width: 80%; height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            right: 0;
+            bottom: -0.1rem;
+            left: 0;
+            z-index: 5;
+            height: 13rem;
+            content: "";
+            pointer-events: none;
+            background: linear-gradient(to bottom, hsl(0 0% 0% / 0) 0%, var(--hero-image-fade-mid) 56%, var(--color-primary) 100%);
         }
 
-        .guide h2 {
-            font-size: 2rem;
-            text-align: center;
-            margin-bottom: 40px;
-        }
-        
-        .guide > .container > p {
-            text-align: center;
-            max-width: 700px;
-            margin: 0 auto 40px;
-            color: var(--secondary-text);
+        .hero-visual {
+            position: relative;
+            width: min(100%, 74rem);
+            height: 36rem;
+            margin: 0 auto;
         }
 
-        .warning-box {
-            background: rgba(50, 40, 10, 0.4);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 214, 10, 0.2);
-            color: var(--warning-text);
-            padding: 24px;
-            border-radius: 20px;
-            margin: 40px 0;
+        .phone-shot {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            overflow: hidden;
+            border: 1px solid hsl(0 0% 100% / 0.13);
+            border-radius: 2.3rem;
+            background: #050505;
+            box-shadow: var(--shadow-soft), inset 0 0 0 1px hsl(0 0% 100% / 0.06);
+            transform-origin: center bottom;
+            transition: transform 420ms cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .phone-shot img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top center;
+        }
+
+        .phone-shot.primary {
+            z-index: 3;
+            width: 19rem;
+            height: 41rem;
+            transform: translateX(-50%);
+        }
+
+        .phone-shot.left {
+            z-index: 2;
+            width: 16rem;
+            height: 35rem;
+            transform: translateX(-118%) rotate(-10deg);
+            opacity: 0.78;
+        }
+
+        .phone-shot.right {
+            z-index: 2;
+            width: 16rem;
+            height: 35rem;
+            transform: translateX(18%) rotate(10deg);
+            opacity: 0.78;
+        }
+
+        .hero-visual:hover .phone-shot.primary {
+            transform: translateX(-50%) translateY(-0.4rem);
+        }
+
+        .hero-visual:hover .phone-shot.left {
+            transform: translateX(-123%) rotate(-12deg);
+        }
+
+        .hero-visual:hover .phone-shot.right {
+            transform: translateX(23%) rotate(12deg);
+        }
+
+        .section {
+            position: relative;
+            scroll-margin-top: 7rem;
+            background: var(--color-primary);
+            padding: 5rem 0;
+        }
+
+        .squiggle {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 1rem;
+            color: var(--color-border);
+        }
+
+        .section-heading {
+            max-width: 44rem;
+            margin: 0 auto 3rem;
+            text-align: center;
+        }
+
+        .section-kicker {
+            margin-bottom: 0.7rem;
+            color: var(--accent);
+            font-size: 0.72rem;
+            font-weight: 900;
+            text-transform: uppercase;
+        }
+
+        .section-heading h2 {
+            color: var(--color-primary-fg);
+            font-size: 2.4rem;
+            font-weight: 800;
+            line-height: 1.1;
+        }
+
+        .section-heading p {
+            margin-top: 1rem;
+            color: var(--color-secondary-fg);
+            font-size: 1rem;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 1rem;
+        }
+
+        .magic-card {
+            --x: -12rem;
+            --y: -12rem;
+            position: relative;
+            isolation: isolate;
+            min-height: 11rem;
+            overflow: hidden;
+            border: 1px solid transparent;
+            border-radius: 1.5rem;
+            background:
+                linear-gradient(var(--color-primary) 0 0) padding-box,
+                radial-gradient(14rem circle at var(--x) var(--y), var(--accent-bright), var(--accent-deep), var(--color-border) 100%) border-box;
+            opacity: 0;
+            transform: translateY(1.5rem);
+            transition: opacity 520ms cubic-bezier(0.16, 1, 0.3, 1), transform 520ms cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .magic-card.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .magic-card::before {
+            position: absolute;
+            inset: 1px;
+            z-index: -2;
+            border-radius: calc(1.5rem - 1px);
+            background: var(--color-primary);
+            content: "";
+        }
+
+        .magic-card::after {
+            position: absolute;
+            inset: 1px;
+            z-index: -1;
+            border-radius: calc(1.5rem - 1px);
+            background: radial-gradient(14rem circle at var(--x) var(--y), hsl(0 0% 15% / 0.78), transparent 100%);
+            content: "";
+            opacity: 0;
+            transition: opacity 260ms ease;
+        }
+
+        :root[data-theme="light"] .magic-card::after {
+            background: radial-gradient(14rem circle at var(--x) var(--y), hsl(0 0% 85% / 0.72), transparent 100%);
+        }
+
+        .magic-card:hover::after {
+            opacity: 1;
+        }
+
+        .feature-card {
             display: flex;
             flex-direction: column;
-            gap: 5px;
-        }
-        
-        .warning-box strong {
-            color: var(--warning-border);
-            text-transform: uppercase;
-            font-size: 0.85rem;
-            letter-spacing: 1px;
+            padding: 1.5rem;
         }
 
-        .os-grid {
+        .feature-card.large {
+            grid-column: span 5;
+            min-height: 14rem;
+        }
+
+        .feature-card.medium {
+            grid-column: span 4;
+        }
+
+        .feature-card.small {
+            grid-column: span 3;
+        }
+
+        .feature-icon {
+            display: flex;
+            width: 2.8rem;
+            height: 2.8rem;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid hsl(0 0% 100% / 0.1);
+            border-radius: 0.9rem;
+            background: hsl(0 0% 100% / 0.05);
+            color: var(--color-primary-fg);
+        }
+
+        :root[data-theme="light"] .feature-icon {
+            border-color: hsl(0 0% 0% / 0.08);
+            background: hsl(0 0% 0% / 0.04);
+        }
+
+        .feature-card h3 {
+            margin-top: 1.4rem;
+            color: var(--color-primary-fg);
+            font-size: 1.45rem;
+            font-weight: 750;
+        }
+
+        .feature-card p {
+            max-width: 24rem;
+            margin-top: 0.75rem;
+            color: var(--color-secondary-fg);
+        }
+
+        .split-section {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 24px;
-            margin: 40px 0;
+            grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+            gap: 4rem;
+            align-items: start;
         }
 
-        .os-card {
-            background: var(--glass-bg);
-            backdrop-filter: var(--glass-blur);
-            padding: 28px;
-            border-radius: 28px;
-            border: 1px solid var(--glass-border);
-            transition: transform 0.2s, background 0.2s;
+        .section-heading.align-left {
+            margin: 0;
+            text-align: left;
         }
 
-        .os-card:hover {
-            transform: translateY(-2px);
-            background: rgba(45, 45, 50, 0.7);
+        .privacy-list {
+            display: grid;
+            gap: 1rem;
         }
 
-        .os-card h4 { margin-top: 0; color: #fff; font-size: 1.3rem; margin-bottom: 15px; }
-        .os-card ul { padding-left: 20px; margin-bottom: 0; color: rgba(255,255,255,0.7); }
-        .os-card a { color: var(--primary-color); font-weight: 500; text-decoration: none; }
-
-        .step-list {
-            counter-reset: step;
-            list-style: none;
-            padding: 0;
-            margin-top: 40px;
+        .privacy-item {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 1rem;
+            border-top: 1px solid var(--color-border);
+            padding: 1.15rem 0;
         }
 
-        .step-list li {
-            position: relative;
-            padding-left: 60px;
-            margin-bottom: 30px;
-            color: rgba(255,255,255,0.85);
-            font-size: 1.05rem;
+        .privacy-mark {
+            display: flex;
+            width: 2rem;
+            height: 2rem;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--color-border);
+            border-radius: 0.75rem;
+            background: hsl(204 100% 58% / 0.1);
+            color: var(--accent);
         }
 
-        .step-list li::before {
-            counter-increment: step;
-            content: counter(step);
-            position: absolute;
-            left: 0; top: -2px;
-            width: 36px; height: 36px;
-            background: var(--primary-color);
-            color: white;
-            border-radius: 50%;
+        .privacy-item h3 {
+            color: var(--color-primary-fg);
+            font-size: 1rem;
+            font-weight: 800;
+        }
+
+        .privacy-item p {
+            margin-top: 0.35rem;
+            color: var(--color-secondary-fg);
+        }
+
+        .community-cta {
+            display: flex;
+            max-width: 44rem;
+            margin: 0 auto;
+            flex-direction: column;
+            align-items: center;
             text-align: center;
-            line-height: 36px;
-            font-weight: 700;
-            font-size: 0.9rem;
         }
 
-        .support-section {
-            padding: 60px 0 80px;
-            position: relative;
-        }
-        
-        .support-section::before {
-            content: "";
-            position: absolute;
-            top: 0; left: 50%; transform: translateX(-50%);
-            width: 80%; height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+        .community-cta h2 {
+            color: var(--color-primary-fg);
+            font-size: 2.4rem;
+            font-weight: 800;
+            line-height: 1.1;
         }
 
-        .discord-btn {
-            display: inline-block;
-            background-color: var(--discord-color);
-            color: white;
-            text-decoration: none;
-            padding: 12px 24px;
-            border-radius: 12px;
-            font-weight: 600;
-            font-size: 0.95rem;
-            margin-top: 20px;
-            transition: opacity 0.2s;
+        .community-cta p:not(.section-kicker) {
+            max-width: 34rem;
+            margin-top: 1rem;
+            color: var(--color-secondary-fg);
+            font-size: 1rem;
         }
 
-        .discord-btn:hover {
-            opacity: 0.9;
+        .section-actions {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.75rem;
+            margin-top: 1.6rem;
         }
 
-        footer {
+        .footer {
+            border-top: 1px solid var(--color-border);
+            background: var(--color-primary);
+            padding: 2.5rem 1.5rem 3rem;
             text-align: center;
-            padding: 40px 0 60px;
-            color: var(--secondary-text);
-            font-size: 0.85rem;
         }
 
-        /* Responsive tweaks */
-        @media (max-width: 900px) {
-            h1 { font-size: 2.8rem; }
+        .footer p {
+            color: var(--color-secondary-fg);
+            font-size: 0.8rem;
         }
 
-        @media (max-width: 600px) {
-            h1 { font-size: 2.4rem; }
-            .hero { padding: 60px 0 40px; }
-            
-            .cta-buttons a {
-                width: 100%;
-                text-align: center;
+        .footer p + p {
+            margin-top: 0.35rem;
+            color: color-mix(in srgb, var(--color-secondary-fg) 70%, transparent);
+        }
+
+        .screen-reader-text {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+        }
+
+        @keyframes hero-enter {
+            from {
+                opacity: 0;
+                transform: translateY(5rem) scale(0.96);
             }
 
-            .container { padding: 0 16px; }
-            .card { padding: 24px; }
-            
-            header {
-                padding: 16px;
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @media (max-width: 980px) {
+            .container {
+                width: min(100% - 2rem, 46rem);
+            }
+
+            .site-header {
+                flex-wrap: wrap;
+            }
+
+            .desktop-nav,
+            .nav-divider {
+                display: none;
+            }
+
+            .menu-toggle {
+                display: inline-flex;
+            }
+
+            .site-header.mobile-open .mobile-nav {
+                display: grid;
+            }
+
+            h1 {
+                font-size: 3.2rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.55rem;
+            }
+
+            .hero-visual {
+                height: 31rem;
+            }
+
+            .hero-visual-shell {
+                margin-top: 5rem;
+            }
+
+            .phone-shot.primary {
+                width: 15rem;
+                height: 32rem;
+            }
+
+            .phone-shot.left,
+            .phone-shot.right {
+                width: 12.5rem;
+                height: 28rem;
+            }
+
+            .feature-card.large,
+            .feature-card.medium,
+            .feature-card.small {
+                grid-column: span 6;
+            }
+
+            .split-section {
+                grid-template-columns: 1fr;
+                gap: 2.5rem;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .site-header-wrap {
+                top: 0.75rem;
+                padding: 0 0.75rem;
+            }
+
+            .site-header {
+                display: grid;
+                grid-template-columns: auto auto;
+                align-items: center;
+                width: 100%;
+                max-width: calc(100vw - 1.5rem);
+                min-width: 0;
+                border-radius: 1.25rem;
+                gap: 0.5rem;
+                padding: 0.45rem 0.55rem;
+            }
+
+            .brand span {
+                display: none;
+            }
+
+            .brand,
+            .nav-actions {
+                flex: 0 0 auto;
+            }
+
+            .nav-actions {
+                margin-left: auto;
+                justify-self: end;
+            }
+
+            .icon-button {
+                width: 2.35rem;
+                height: 2.35rem;
+                border-radius: 0.8rem;
+            }
+
+            .mobile-nav {
+                grid-column: 1 / -1;
+            }
+
+            .hero-page-bg {
+                min-height: auto;
+                padding-top: 7.5rem;
+            }
+
+            h1 {
+                font-size: 2.55rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.25rem;
+            }
+
+            .hero-actions {
+                align-items: stretch;
+                flex-direction: column;
+                width: min(100%, 22.5rem);
+                margin-right: auto;
+                margin-left: auto;
+            }
+
+            .button {
+                width: 100%;
+            }
+
+            .hero-visual-shell {
+                margin-top: 4.75rem;
+            }
+
+            .hero-visual {
+                height: 27rem;
+            }
+
+            .phone-shot.primary {
+                width: 13.2rem;
+                height: 28rem;
+            }
+
+            .phone-shot.left {
+                width: 10rem;
+                height: 23rem;
+                transform: translateX(-110%) rotate(-8deg);
+            }
+
+            .phone-shot.right {
+                width: 10rem;
+                height: 23rem;
+                transform: translateX(10%) rotate(8deg);
+            }
+
+            .section {
+                padding: 4rem 0;
+            }
+
+            .section-heading h2 {
+                font-size: 2rem;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .feature-card.large,
+            .feature-card.medium,
+            .feature-card.small {
+                grid-column: auto;
+            }
+
+            .section-actions {
+                flex-direction: column;
+                width: min(100%, 22.5rem);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            *,
+            *::before,
+            *::after {
+                animation-duration: 1ms !important;
+                transition-duration: 1ms !important;
             }
         }
     </style>
 </head>
 <body>
+    <div class="page-shell">
+        <header class="site-header-wrap">
+            <div class="site-header" id="site-header">
+                <a class="brand" href="#home" aria-label="StikDebug home">
+                    <img src="assets/icon.png" alt="" aria-hidden="true">
+                    <span>StikDebug</span>
+                </a>
 
-    <div class="container">
-        <header>
-            <div class="logo">Stik<span>Debug</span></div>
-            <nav>
-                <a href="#features">Features</a>
-                <a href="#guide">Guide</a>
-                <a href="#support">Support</a>
-            </nav>
+                <span class="nav-divider" aria-hidden="true"></span>
+
+                <nav class="desktop-nav" aria-label="Primary navigation">
+                    <a href="#home" class="is-active">Home</a>
+                    <a href="#features">Features</a>
+                    <a href="#privacy">Privacy</a>
+                    <a href="#community">Community</a>
+                </nav>
+
+                <div class="nav-actions">
+                    <button class="icon-button" type="button" id="theme-toggle" aria-label="Toggle theme">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                            <path d="M12 3v2.2M12 18.8V21M4.2 4.2l1.55 1.55M18.25 18.25l1.55 1.55M3 12h2.2M18.8 12H21M4.2 19.8l1.55-1.55M18.25 5.75l1.55-1.55" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            <circle cx="12" cy="12" r="4.2" stroke="currentColor" stroke-width="2"/>
+                        </svg>
+                    </button>
+                    <button class="icon-button menu-toggle" type="button" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                            <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <nav class="mobile-nav" aria-label="Mobile navigation">
+                    <a href="#home" class="is-active">Home</a>
+                    <a href="#features">Features</a>
+                    <a href="#privacy">Privacy</a>
+                    <a href="#community">Community</a>
+                </nav>
+            </div>
         </header>
 
-        <section class="hero">
-            <img src="assets/icon.png" alt="StikDebug Icon" class="app-icon">
-            
-            <h1>Unlock the power of <br>on-device debugging.</h1>
-            <p>Enable JIT for sideloaded apps, debug processes, and manage your iOS development workflow directly from your device.</p>
-            
-            <div class="cta-buttons">
-                <a href="https://github.com/StephenDev0/StikDebug/releases/latest" class="app-store-btn">
-                    Download the IPA on GitHub
-                </a>
-                <a href="https://celloserenity.github.io/altdirect/?url=https://stikdebug.xyz/index.json" class="app-store-btn" style="background-color: #5865F2;">
-                    Add Source
-                </a>
-            </div>
-            
-            <a href="https://github.com/StephenDev0/StikDebug" class="github-link">View Source on GitHub</a>
-        </section>
+        <main>
+            <section class="hero-page-bg" id="home">
+                <div class="container hero-inner">
+                    <div class="hero-copy">
+                        <h1 class="gradient-text">StikDebug</h1>
+                        <p class="hero-subtitle gradient-text">JIT enablement for iOS.</p>
+                        <p class="hero-description">Enable JIT directly from your device, then inspect processes, manage pairing files, and track app expiration dates on iPhone or iPad.</p>
 
-        <section id="features" class="features">
-            <div class="grid">
-                <div class="card">
-                    <h3>Home</h3>
-                    <p>Dashboard overview. Your central hub for quick actions and status checks.</p>
-                </div>
-
-                <div class="card">
-                    <h3>Console</h3>
-                    <p>Live device logs. Monitor system output and debug in real-time.</p>
-                </div>
-
-                <div class="card">
-                    <h3>Scripts</h3>
-                    <p>Manage automation scripts. Create, import, and run custom JS for JIT tasks.</p>
-                </div>
-
-                <div class="card">
-                    <h3>Profiles</h3>
-                    <p>Install/remove profiles. Manage provisioning profiles to keep apps running.</p>
-                </div>
-
-                <div class="card">
-                    <h3>Device Info</h3>
-                    <p>View detailed device metadata. Inspect hardware specs and pairing status.</p>
-                </div>
-
-                <div class="card">
-                    <h3>Processes <span class="beta-tag">Beta</span></h3>
-                    <p>Inspect running apps. View active processes and kill frozen tasks.</p>
-                </div>
-
-                <div class="card">
-                    <h3>Devices <span class="beta-tag">Beta</span></h3>
-                    <p>Manage external devices. Connect and configure other hardware over the network.</p>
-                </div>
-                
-                <div class="card">
-                    <h3>Location <span class="beta-tag">Beta</span></h3>
-                    <p>Simulate GPS location directly in StikDebug. Available now in the latest build.</p>
-                </div>
-                
-                 <div class="card">
-                    <h3>Customizable Tabs</h3>
-                    <p>Pick up to 4 tabs to pin to your bottom bar for a personalized workflow.</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="guide" class="guide">
-            <div class="container">
-                <h2>Installation Guide: iloader</h2>
-                <p>iloader allows us to create a pairing file for programs like StikDebug to talk to your device remotely. This pairing file is <strong>device-specific</strong> and required for core functionality.</p>
-
-                <div class="warning-box">
-                    <strong>Warning</strong>
-                    Caution: If you update or reset your iDevice, your pairing file will expire and you will need to replace it. This also occurs at random times due to Apple's software architecture.
-                </div>
-
-                <h3>Prerequisites</h3>
-                <div class="os-grid">
-                    <div class="os-card">
-                        <h4>macOS</h4>
-                        <ul>
-                            <li>Download and install iloader for <a href="https://github.com/nab138/iloader/releases/latest/download/iloader-darwin-universal.dmg">Mac</a>.</li>
-                        </ul>
-                    </div>
-
-                    <div class="os-card">
-                        <h4>Windows</h4>
-                        <ul>
-                            <li>Download and install <a href="https://apple.co/ms">iTunes</a>.</li>
-                            <li>Download the iloader installer (<a href="https://github.com/nab138/iloader/releases/latest/download/iloader-windows-x64.exe">exe</a> or <a href="https://github.com/nab138/iloader/releases/latest/download/iloader-windows-x64.msi">msi</a>).</li>
-                            <li>Run the installer.</li>
-                        </ul>
-                    </div>
-
-                    <div class="os-card">
-                        <h4>Linux</h4>
-                        <ul>
-                            <li>Install <code>usbmuxd</code> (use your package manager).</li>
-                            <li>Download iloader: 
-                                <a href="https://github.com/nab138/iloader/releases/latest/download/iloader-linux-amd64.deb">Debian</a>, 
-                                <a href="https://github.com/nab138/iloader/releases/download/v0.1.3/iloader-linux-x86_64.rpm">Fedora</a>, or 
-                                <a href="https://github.com/nab138/iloader/releases/latest/download/iloader-linux-amd64.AppImage">AppImage</a>.
-                            </li>
-                        </ul>
+                        <div class="hero-actions" aria-label="Download actions">
+                            <a class="button button-primary" href="https://github.com/StephenDev0/StikDebug/releases/latest">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                                    <path d="M12 3v11m0 0 4-4m-4 4-4-4M4 17.5V19a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-1.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                Download IPA
+                            </a>
+                            <a class="button button-secondary" href="https://celloserenity.github.io/altdirect/?url=https://stikdebug.xyz/index.json">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                                    <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+                                </svg>
+                                Add Source
+                            </a>
+                            <a class="button button-quiet" href="https://github.com/StephenDev0/StikDebug">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                                    <path d="M9 19c-4 1.2-4-2-5.6-2.4M14.8 22v-3.4c0-1 .1-1.4-.5-2 2-.2 4.2-1 4.2-4.5 0-1-.4-1.9-1-2.6.1-.3.4-1.3-.1-2.6 0 0-.8-.3-2.7 1a9.5 9.5 0 0 0-4.9 0c-1.9-1.3-2.7-1-2.7-1-.5 1.3-.2 2.3-.1 2.6-.6.7-1 1.6-1 2.6 0 3.5 2.1 4.3 4.2 4.5-.3.3-.5.8-.5 1.5V22" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                GitHub
+                            </a>
+                        </div>
                     </div>
                 </div>
 
-                <h3>Placing Your Pairing File</h3>
-                <ul class="step-list">
-                    <li>For best results, connect your iDevice to your computer via USB (wireless may work if the device appears).</li>
-                    <li>Launch iloader and click <strong>Manage Pairing File</strong>.</li>
-                    <li>To the right of "StikDebug" (and any other apps you wish), click <strong>Place</strong>.</li>
-                    <li>Wait for the message: <span style="color: #4cd964; font-weight: bold;">"Pairing file placed successfully!"</span></li>
-                </ul>
-            </div>
-        </section>
-
-        <section id="support" class="support-section">
-            <div class="container">
-                <div class="grid">
-                    <div class="card">
-                        <h3>Privacy Policy</h3>
-                        <p>StikDebug does not collect, store, or share any personal data. All processing happens entirely on your device.</p>
-                    </div>
-                    <div class="card">
-                        <h3>Support</h3>
-                        <p>Need help or have suggestions? Join our community server.</p>
-                        <a href="https://discord.gg/mACqxMxP3X" class="discord-btn" target="_blank">Join Discord Server</a>
+                <div class="hero-visual-shell" aria-label="StikDebug app screenshots">
+                    <div class="hero-visual">
+                        <div class="phone-shot left">
+                            <img src="assets/source/scripts.png" alt="StikDebug scripts screen">
+                        </div>
+                        <div class="phone-shot primary">
+                            <img src="assets/source/home.png" alt="StikDebug home screen">
+                        </div>
+                        <div class="phone-shot right">
+                            <img src="assets/source/settings.png" alt="StikDebug settings screen">
+                        </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <footer>
-            <p>&copy; 2025 Stephen Bove. All rights reserved.</p>
+            <section class="section" id="features">
+                <svg class="squiggle" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <pattern id="squiggle-features" x="0" y="0" width="40" height="16" patternUnits="userSpaceOnUse">
+                            <path d="M0 8 C5 1, 15 1, 20 8 C25 15, 35 15, 40 8" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                        </pattern>
+                    </defs>
+                    <rect width="100%" height="16" fill="url(#squiggle-features)"/>
+                </svg>
+
+                <div class="container">
+                    <div class="section-heading">
+                        <p class="section-kicker">Developer surface</p>
+                        <h2>Everything you need to keep an iOS debug workflow moving.</h2>
+                        <p>StikDebug keeps the essential tools close: connection state, console logs, scripts, app expiration dates, processes, and device metadata.</p>
+                    </div>
+
+                    <div class="feature-grid">
+                        <article class="magic-card feature-card large">
+                            <div class="feature-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                                    <path d="m3 11 9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1v-9Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                            <h3>Home</h3>
+                            <p>Dashboard overview with quick actions, connection status, and local-only tips right where users start.</p>
+                        </article>
+
+                        <article class="magic-card feature-card medium">
+                            <div class="feature-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                                    <path d="m7 8 4 4-4 4M13 17h4M4 5h16v14H4z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                            <h3>Console</h3>
+                            <p>Live device logs for watching output, checking runtime behavior, and debugging in real time.</p>
+                        </article>
+
+                        <article class="magic-card feature-card small">
+                            <div class="feature-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                                    <path d="M8 4h8l3 3v13H8zM5 7h3v13H5zM16 4v4h3" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                            <h3>Scripts</h3>
+                            <p>Create, import, favorite, and run custom JavaScript for repeatable JIT tasks.</p>
+                        </article>
+
+                        <article class="magic-card feature-card medium">
+                            <div class="feature-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                                    <path d="M7 3v3M17 3v3M4 8h16M6 5h12a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M12 12v3l2 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                            <h3>App Expirery</h3>
+                            <p>See when installed apps will expire so you can refresh them before they stop launching.</p>
+                        </article>
+
+                        <article class="magic-card feature-card medium">
+                            <div class="feature-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                                    <path d="M7 2h10a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2ZM10 18h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                </svg>
+                            </div>
+                            <h3>Device Info</h3>
+                            <p>Inspect hardware metadata, pairing state, and device details without leaving the app.</p>
+                        </article>
+
+                        <article class="magic-card feature-card medium">
+                            <div class="feature-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                                    <path d="M4 6h16M4 12h16M4 18h16M8 6v12M16 6v12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                </svg>
+                            </div>
+                            <h3>Processes</h3>
+                            <p>Inspect running apps, check active processes, and stop frozen tasks from the device.</p>
+                        </article>
+
+                        <article class="magic-card feature-card small">
+                            <div class="feature-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                                    <path d="M8 7h8M8 12h8M8 17h5M5 3h14a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                </svg>
+                            </div>
+                            <h3>Devices</h3>
+                            <p>Connect and configure external devices over the network.</p>
+                        </article>
+
+                        <article class="magic-card feature-card medium">
+                            <div class="feature-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                                    <path d="M12 22s7-5.4 7-12a7 7 0 0 0-14 0c0 6.6 7 12 7 12Z" stroke="currentColor" stroke-width="2"/>
+                                    <circle cx="12" cy="10" r="2.5" stroke="currentColor" stroke-width="2"/>
+                                </svg>
+                            </div>
+                            <h3>Location</h3>
+                            <p>Simulate GPS location directly in StikDebug from the latest build.</p>
+                        </article>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section" id="privacy">
+                <svg class="squiggle" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <pattern id="squiggle-privacy" x="0" y="0" width="40" height="16" patternUnits="userSpaceOnUse">
+                            <path d="M0 8 C5 1, 15 1, 20 8 C25 15, 35 15, 40 8" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                        </pattern>
+                    </defs>
+                    <rect width="100%" height="16" fill="url(#squiggle-privacy)"/>
+                </svg>
+
+                <div class="container split-section">
+                    <div class="section-heading align-left">
+                        <p class="section-kicker">Privacy</p>
+                        <h2>Local-only by default.</h2>
+                        <p>StikDebug keeps your debugging workflow local, so your files and device details stay on your device.</p>
+                    </div>
+
+                    <div class="privacy-list">
+                        <div class="privacy-item">
+                            <span class="privacy-mark" aria-hidden="true">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                                    <path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </span>
+                            <div>
+                                <h3>No analytics</h3>
+                                <p>No background tracking or usage analytics are collected.</p>
+                            </div>
+                        </div>
+                        <div class="privacy-item">
+                            <span class="privacy-mark" aria-hidden="true">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                                    <path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </span>
+                            <div>
+                                <h3>No accounts</h3>
+                                <p>StikDebug does not require sign-in or a hosted user profile.</p>
+                            </div>
+                        </div>
+                        <div class="privacy-item">
+                            <span class="privacy-mark" aria-hidden="true">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                                    <path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </span>
+                            <div>
+                                <h3>On-device processing</h3>
+                                <p>Pairing files, scripts, and app state stay on your device.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section" id="community">
+                <svg class="squiggle" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <pattern id="squiggle-community" x="0" y="0" width="40" height="16" patternUnits="userSpaceOnUse">
+                            <path d="M0 8 C5 1, 15 1, 20 8 C25 15, 35 15, 40 8" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                        </pattern>
+                    </defs>
+                    <rect width="100%" height="16" fill="url(#squiggle-community)"/>
+                </svg>
+
+                <div class="container community-cta">
+                    <p class="section-kicker">Community</p>
+                    <h2>Get help and follow updates.</h2>
+                    <p>Join the Discord server for support, suggestions, and release updates, or file an issue on GitHub.</p>
+                    <div class="section-actions">
+                        <a class="button button-primary" style="background: var(--discord);" href="https://discord.gg/mACqxMxP3X" target="_blank" rel="noopener noreferrer">
+                            <svg width="22" height="18" viewBox="0 0 127.14 96.36" fill="currentColor" aria-hidden="true">
+                                <path d="M107.7 8.07A105.15 105.15 0 0 0 81.47 0a72.06 72.06 0 0 0-3.36 6.83 97.68 97.68 0 0 0-29.11 0A72.37 72.37 0 0 0 45.64 0 105.89 105.89 0 0 0 19.39 8.09C2.79 32.65-1.71 56.6.54 80.21a105.73 105.73 0 0 0 32.17 16.15 77.7 77.7 0 0 0 6.89-11.11 68.42 68.42 0 0 1-10.85-5.18c.91-.66 1.8-1.34 2.66-2.06a75.57 75.57 0 0 0 65.06 0c.87.72 1.76 1.4 2.66 2.06a68.68 68.68 0 0 1-10.87 5.19 77 77 0 0 0 6.89 11.1 105.25 105.25 0 0 0 32.16-16.14c2.64-27.38-4.51-51.11-19.61-72.15ZM42.45 65.69C36.18 65.69 31 60 31 53s5-12.74 11.43-12.74S54 46 53.89 53s-5.05 12.69-11.44 12.69Zm42.24 0C78.41 65.69 73.25 60 73.25 53s5-12.74 11.44-12.74S96.23 46 96.12 53s-5.04 12.69-11.43 12.69Z"/>
+                            </svg>
+                            Join Discord
+                        </a>
+                        <a class="button button-quiet" href="https://github.com/StephenDev0/StikDebug/issues">
+                            GitHub Issues
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <p>&copy; 2026 Stephen Bove. All rights reserved.</p>
             <p>StikDebug is a tool for developers and enthusiasts. Not affiliated with Apple Inc.</p>
+            <p>All trademarks, logos, and brand names are the property of their respective owners.</p>
         </footer>
     </div>
 
+    <script>
+        (() => {
+            const root = document.documentElement;
+            const savedTheme = window.localStorage.getItem("theme");
+            root.dataset.theme = savedTheme === "light" ? "light" : "dark";
+
+            const header = document.getElementById("site-header");
+            const menuToggle = document.getElementById("menu-toggle");
+            const themeToggle = document.getElementById("theme-toggle");
+            const navLinks = Array.from(document.querySelectorAll(".desktop-nav a, .mobile-nav a"));
+            const sections = Array.from(document.querySelectorAll("main section[id]"));
+
+            themeToggle?.addEventListener("click", () => {
+                const nextTheme = root.dataset.theme === "light" ? "dark" : "light";
+                root.dataset.theme = nextTheme;
+                window.localStorage.setItem("theme", nextTheme);
+            });
+
+            menuToggle?.addEventListener("click", () => {
+                const open = !header.classList.contains("mobile-open");
+                header.classList.toggle("mobile-open", open);
+                menuToggle.setAttribute("aria-expanded", String(open));
+            });
+
+            navLinks.forEach((link) => {
+                link.addEventListener("click", () => {
+                    header.classList.remove("mobile-open");
+                    menuToggle?.setAttribute("aria-expanded", "false");
+                });
+            });
+
+            const setActiveNav = () => {
+                const offset = Math.min(360, Math.max(160, window.innerHeight * 0.46));
+                let activeId = sections[0]?.id || "home";
+
+                for (const section of sections) {
+                    if (section.getBoundingClientRect().top <= offset) {
+                        activeId = section.id;
+                    }
+                }
+
+                if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 180) {
+                    activeId = sections[sections.length - 1]?.id || activeId;
+                }
+
+                navLinks.forEach((link) => {
+                    link.classList.toggle("is-active", link.getAttribute("href") === `#${activeId}`);
+                });
+            };
+
+            setActiveNav();
+            window.addEventListener("scroll", setActiveNav, { passive: true });
+            window.addEventListener("resize", setActiveNav);
+
+            document.querySelectorAll(".magic-card").forEach((card) => {
+                card.addEventListener("pointermove", (event) => {
+                    const rect = card.getBoundingClientRect();
+                    card.style.setProperty("--x", `${event.clientX - rect.left}px`);
+                    card.style.setProperty("--y", `${event.clientY - rect.top}px`);
+                });
+
+                card.addEventListener("pointerleave", () => {
+                    card.style.setProperty("--x", "-12rem");
+                    card.style.setProperty("--y", "-12rem");
+                });
+            });
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("is-visible");
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.12 });
+
+            document.querySelectorAll(".magic-card").forEach((card) => observer.observe(card));
+        })();
+    </script>
 </body>
 </html>
