@@ -5,8 +5,8 @@
   "subtitle": "Official AltSource for StikDebug.",
   "description": "An on-device JIT enabler and device toolbox.",
   "tintColor": "#3B86F7",
-  "iconURL": "https://github.com/StephenDev0/StikDebug/blob/main/assets/StikJIT.png?raw=true",
-  "headerURL": "https://github.com/StephenDev0/StikDebug/blob/main/assets/StikJIT.png?raw=true",
+  "iconURL": "https://github.com/StephenDev0/StikDebug/blob/main/assets/StikDebug.png?raw=true",
+  "headerURL": "https://github.com/StephenDev0/StikDebug/blob/main/assets/StikDebug.png?raw=true",
   "apps": [
     {
       "name": "StikDebug",
@@ -14,7 +14,7 @@
       "developerName": "StephenDev0",
       "subtitle": "On-device JIT enabler and device toolbox.",
       "localizedDescription": "An on-device debugger and developer toolbox for iOS versions 17.4+ powered by idevice.  Note: Requires LocalDevVPN, cannot be natively used inside LiveContainer to enable JIT for the same LiveContainer.",
-      "iconURL": "https://github.com/StephenDev0/StikDebug/blob/main/assets/StikJIT.png?raw=true",
+      "iconURL": "https://github.com/StephenDev0/StikDebug/blob/main/assets/StikDebug.png?raw=true",
       "tintColor": "#3B86F7",
       "size": 11996559,
       "screenshots": {
