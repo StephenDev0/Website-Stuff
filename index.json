@@ -35,6 +35,14 @@
 
       "versions": [
         {
+          "version": "3.1.5",
+          "date": "2026-05-31",
+          "localizedDescription": "Fixed a bug that prevented the location simulator from starting.",
+          "downloadURL": "https://github.com/StephenDev0/StikDebug/releases/download/3.1.5/StikDebug-3.1.5.ipa",
+          "size": 11027579,
+          "minOSVersion": "17.4"
+        },
+        {
           "version": "3.1.4",
           "date": "2026-05-31",
           "localizedDescription": "Fixed issues with TXM detection and fixed a few other weird issues.",
