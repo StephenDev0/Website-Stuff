@@ -35,6 +35,14 @@
 
       "versions": [
         {
+          "version": "3.1.4",
+          "date": "2026-05-31",
+          "localizedDescription": "Fixed issues with TXM detection and fixed a few other weird issues.",
+          "downloadURL": "https://github.com/StephenDev0/StikDebug/releases/download/3.1.4/StikDebug-3.1.4.ipa",
+          "size": 11028217,
+          "minOSVersion": "17.4"
+        },
+        {
           "version": "3.1.3",
           "date": "2026-05-18",
           "localizedDescription": "Includes performance improvements, bug fixes, quality of life improvements, a new news tab, and more.",
