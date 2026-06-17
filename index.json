@@ -35,6 +35,14 @@
 
       "versions": [
         {
+          "version": "3.1.6",
+          "date": "2026-06-16",
+          "localizedDescription": "Fixes TXM checks for certain devices on iOS 27. Keep in mind apps you want to enable JIT for will have to release their own patches.",
+          "downloadURL": "https://github.com/StephenDev0/StikDebug/releases/download/3.1.6/StikDebug-3.1.6.ipa",
+          "size": 11028710,
+          "minOSVersion": "17.4"
+        },
+        {
           "version": "3.1.5",
           "date": "2026-05-31",
           "localizedDescription": "Fixed a bug that prevented the location simulator from starting.",
