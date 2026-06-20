@@ -79,7 +79,7 @@
       "name": "StikPair",
       "bundleIdentifier": "com.stik.StikPair",
       "developerName": "StephenDev0",
-      "subtitle": "A simple SwiftUI iOS app that creates a pairing file on-device. Note: Requires iOS 27+",
+      "subtitle": "Requires iOS 27+",
       "localizedDescription": "A simple SwiftUI iOS app that creates a pairing file on-device, using iOS 27+ wireless pairing.  Note: Requires iOS 27+.",
       "iconURL": "https://github.com/StephenDev0/StikPair/blob/main/App/Assets.xcassets/AppLogo.imageset/StikPair-iOS-Default-1024%401x.png?raw=true",
       "tintColor": "#3B86F7",
