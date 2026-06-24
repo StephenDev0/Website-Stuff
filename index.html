@@ -8,7 +8,7 @@
     <meta name="title" content="StikDebug - iOS JIT Enabler &amp; On-Device Debugger">
     <meta name="description" content="StikDebug helps you enable JIT on iOS, then inspect processes, manage pairing files, and track app expiration dates without a computer.">
     <meta name="keywords" content="StikDebug, iOS debugger, JIT enabler, on-device debugging, iOS development, JIT iOS 17, iloader, Stephen Bove">
-    <meta name="author" content="Stephen Bove">
+    <meta name="author" content="StephenDev0">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://stikdebug.xyz/">
 
@@ -43,7 +43,7 @@
             "image": "https://stikdebug.xyz/assets/icon.png",
             "author": {
                 "@type": "Person",
-                "name": "Stephen Bove"
+                "name": "StephenDev0"
             }
         }
     </script>
@@ -551,6 +551,20 @@
             padding: 3rem 0;
             text-align: center;
         }
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.4rem 1.4rem;
+            margin-bottom: 1.5rem;
+        }
+        .footer-links a {
+            color: var(--muted);
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 160ms ease;
+        }
+        .footer-links a:hover { color: var(--text); }
         .footer p { font-size: 0.82rem; color: var(--muted); }
         .footer p + p { margin-top: 0.4rem; opacity: 0.75; }
 
@@ -867,6 +881,10 @@
 
     <footer class="footer">
         <div class="container">
+            <nav class="footer-links" aria-label="Footer">
+                <a href="privacy.html">Privacy Policy</a>
+                <a href="https://github.com/StephenDev0/Website-Stuff" target="_blank" rel="noopener noreferrer">Source Code</a>
+            </nav>
             <p>&copy; 2026 StephenDev0. All rights reserved.</p>
             <p>StikDebug is a tool for developers and enthusiasts. Not affiliated with Apple Inc.</p>
             <p>All trademarks, logos, and brand names are the property of their respective owners.</p>
