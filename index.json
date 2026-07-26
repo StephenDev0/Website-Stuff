@@ -34,43 +34,19 @@
       },
       "versions": [
         {
+          "version": "3.1.7",
+          "date": "2026-06-25",
+          "localizedDescription": "Remove old scripts, rename UTM-Dolphin.js to legacy.js, fixes.",
+          "downloadURL": "https://github.com/StephenDev0/StikDebug/releases/download/3.1.7/StikDebug-3.1.7.ipa",
+          "size": 12815045,
+          "minOSVersion": "17.4"
+        },
+        {
           "version": "3.1.6",
           "date": "2026-06-16",
           "localizedDescription": "Fixes TXM checks for certain devices on iOS 27. Keep in mind apps you want to enable JIT for will have to release their own patches.",
           "downloadURL": "https://github.com/StephenDev0/StikDebug/releases/download/3.1.6/StikDebug-3.1.6.ipa",
           "size": 11028710,
-          "minOSVersion": "17.4"
-        },
-        {
-          "version": "3.1.5",
-          "date": "2026-05-31",
-          "localizedDescription": "Fixed a bug that prevented the location simulator from starting.",
-          "downloadURL": "https://github.com/StephenDev0/StikDebug/releases/download/3.1.5/StikDebug-3.1.5.ipa",
-          "size": 11027579,
-          "minOSVersion": "17.4"
-        },
-        {
-          "version": "3.1.4",
-          "date": "2026-05-31",
-          "localizedDescription": "Fixed issues with TXM detection and fixed a few other weird issues.",
-          "downloadURL": "https://github.com/StephenDev0/StikDebug/releases/download/3.1.4/StikDebug-3.1.4.ipa",
-          "size": 11028217,
-          "minOSVersion": "17.4"
-        },
-        {
-          "version": "3.1.3",
-          "date": "2026-05-18",
-          "localizedDescription": "Includes performance improvements, bug fixes, quality of life improvements, a new news tab, and more.",
-          "downloadURL": "https://github.com/StephenDev0/StikDebug/releases/download/3.1.3/StikDebug-3.1.3.ipa",
-          "size": 11125407,
-          "minOSVersion": "17.4"
-        },
-        {
-          "version": "3.1.2",
-          "date": "2026-04-12",
-          "localizedDescription": "Improved iOS 26/TXM JIT reliability.",
-          "downloadURL": "https://github.com/StephenDev0/StikDebug/releases/download/3.1.2/StikDebug-3.1.2.ipa",
-          "size": 10974298,
           "minOSVersion": "17.4"
         }
       ]
