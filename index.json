@@ -34,19 +34,11 @@
       },
       "versions": [
         {
-          "version": "3.1.7",
-          "date": "2026-06-25",
-          "localizedDescription": "Remove old scripts, rename UTM-Dolphin.js to legacy.js, fixes.",
-          "downloadURL": "https://github.com/StephenDev0/StikDebug/releases/download/3.1.7/StikDebug-3.1.7.ipa",
-          "size": 12815045,
-          "minOSVersion": "17.4"
-        },
-        {
-          "version": "3.1.6",
-          "date": "2026-06-16",
-          "localizedDescription": "Fixes TXM checks for certain devices on iOS 27. Keep in mind apps you want to enable JIT for will have to release their own patches.",
-          "downloadURL": "https://github.com/StephenDev0/StikDebug/releases/download/3.1.6/StikDebug-3.1.6.ipa",
-          "size": 11028710,
+          "version": "3.1.8",
+          "date": "2026-07-31",
+          "localizedDescription": "Fixes for pairing files and url schemes.",
+          "downloadURL": "https://github.com/StephenDev0/StikDebug/releases/download/3.1.8/StikDebug-3.1.8.ipa",
+          "size": 12818495,
           "minOSVersion": "17.4"
         }
       ]
