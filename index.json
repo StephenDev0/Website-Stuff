@@ -34,10 +34,10 @@
       },
       "versions": [
         {
-          "version": "3.1.8",
-          "date": "2026-07-31",
-          "localizedDescription": "Fixes for pairing files and url schemes.",
-          "downloadURL": "https://github.com/StephenDev0/StikDebug/releases/download/3.1.8/StikDebug-3.1.8.ipa",
+          "version": "3.1.9",
+          "date": "2026-08-01",
+          "localizedDescription": "Fixes for pairing files.",
+          "downloadURL": "https://github.com/StephenDev0/StikDebug/releases/download/3.1.9/StikDebug-3.1.9.ipa",
           "size": 12818495,
           "minOSVersion": "17.4"
         }
