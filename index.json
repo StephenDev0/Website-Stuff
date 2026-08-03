@@ -5,16 +5,16 @@
   "subtitle": "Official AltSource for StikDebug and other apps.",
   "description": "An on-device JIT enabler and device toolbox.",
   "tintColor": "#3B86F7",
-  "iconURL": "https://github.com/StephenDev0/StikDebug/blob/main/assets/StikDebug.png?raw=true",
-  "headerURL": "https://github.com/StephenDev0/StikDebug/blob/main/assets/StikDebug.png?raw=true",
+  "iconURL": "https://github.com/StikDebug/StikDebug/blob/main/assets/StikDebug.png?raw=true",
+  "headerURL": "https://github.com/StikDebug/StikDebug/blob/main/assets/StikDebug.png?raw=true",
   "apps": [
     {
       "name": "StikDebug",
       "bundleIdentifier": "com.stik.stikdebug",
-      "developerName": "StephenDev0",
+      "developerName": "StikDebug",
       "subtitle": "On-device JIT enabler and device toolbox.",
       "localizedDescription": "An on-device debugger and developer toolbox for iOS versions 17.4+ powered by idevice.  Note: Requires LocalDevVPN, cannot be natively used inside LiveContainer to enable JIT for the same LiveContainer.",
-      "iconURL": "https://github.com/StephenDev0/StikDebug/blob/main/assets/StikDebug.png?raw=true",
+      "iconURL": "https://github.com/StikDebug/StikDebug/blob/main/assets/StikDebug.png?raw=true",
       "tintColor": "#3B86F7",
       "size": 11996559,
       "screenshots": {
@@ -37,7 +37,7 @@
           "version": "3.1.9",
           "date": "2026-08-01",
           "localizedDescription": "Fixes for pairing files.",
-          "downloadURL": "https://github.com/StephenDev0/StikDebug/releases/download/3.1.9/StikDebug-3.1.9.ipa",
+          "downloadURL": "https://github.com/StikDebug/StikDebug/releases/download/3.1.9/StikDebug-3.1.9.ipa",
           "size": 12818495,
           "minOSVersion": "17.4"
         }
@@ -46,10 +46,10 @@
     {
       "name": "StikPair",
       "bundleIdentifier": "com.stik.StikPair",
-      "developerName": "StephenDev0",
+      "developerName": "StikDebug",
       "subtitle": "Requires iOS 27+",
       "localizedDescription": "A simple SwiftUI iOS app that creates a pairing file on-device, using iOS 27+ wireless pairing.  Note: Requires iOS 27+.",
-      "iconURL": "https://github.com/StephenDev0/StikPair/blob/main/App/Assets.xcassets/AppLogo.imageset/StikPair-iOS-Default-1024%401x.png?raw=true",
+      "iconURL": "https://github.com/StikDebug/StikPair/blob/main/App/Assets.xcassets/AppLogo.imageset/StikPair-iOS-Default-1024%401x.png?raw=true",
       "tintColor": "#3B86F7",
       "size": 7581073,
       "screenshots": {
@@ -72,7 +72,7 @@
           "version": "1.1.0",
           "date": "2026-06-20",
           "localizedDescription": "Initial AltSource Release. Note: Requires iOS 27+",
-          "downloadURL": "https://github.com/StephenDev0/StikPair/releases/download/v1.1.0/StikPair-1.1.0.ipa",
+          "downloadURL": "https://github.com/StikDebug/StikPair/releases/download/v1.1.0/StikPair-1.1.0.ipa",
           "size": 7581073,
           "minOSVersion": "27.0"
         }
